@@ -1,5 +1,4 @@
-import { account, ID ,databases,DatabaseId} from '../Config/config';
-import { v4 as uuidv4 } from 'uuid';
+import {ID ,databases,DatabaseId} from '../Config/config';
 // let collectionId = '67cdccf7000690d1f506'
 let collectionId = import.meta.env.VITE_APPWRITE_COLLECTION_ID
 // let  databasesiD = '67cdcce000168f2ce71f'

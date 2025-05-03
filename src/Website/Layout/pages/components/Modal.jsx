@@ -31,7 +31,8 @@ const dispatch = useDispatch();
     setOpen(true);
   };
   const handleClickOpen1 = () => {
-    dispatch(Updateblog({...blog1,mode:""}));
+    // dispatch(Updateblog({...blog1,mode:""}));
+    dispatch(Updateblog({ documentID: '',id:'', Title:'', Context:'', Image:'',modal_Open: true,mode: ""}));
     setOpen(true);
   }
 

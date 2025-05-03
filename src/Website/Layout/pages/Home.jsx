@@ -2,8 +2,7 @@ import React from 'react'
 import CardsCom from './components/CardsCom'
 import Grid from '@mui/material/Grid2';
 import { useState,useEffect,useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux'
 import {Delete,Update,Add,Get} from '../../../Config/blogManage';
 import ButtonC from './components/ButtonC';
 import Modal from './components/Modal';
@@ -15,9 +14,6 @@ function Home() {
   const [list,SetList] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false); // 👈 Track submission
   const modalRef = useRef();  // 👈 Create ref for Modal
-  const handleCardButtonClick = () => {
-    modalRef.current.openModal();  // 👈 Call openModal when button is clicked inside CardsCom
-  };
   useEffect(() => {
     Get().then(async (result) => {
       if (result) {

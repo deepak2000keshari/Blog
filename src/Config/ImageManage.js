@@ -1,4 +1,4 @@
-import { account, ID,storage,StoreId,Permission, Role} from '../Config/config';
+import {ID,storage,StoreId,Permission, Role} from '../Config/config';
 
 export async function AddImage(file){
     try {

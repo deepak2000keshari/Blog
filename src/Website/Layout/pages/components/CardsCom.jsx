@@ -1,4 +1,4 @@
-import React, { useEffect,forwardRef } from 'react'
+import React, {forwardRef } from 'react'
 import { Card, CardContent, CardMedia, Typography, Button, CardActions } from "@mui/material";
 import ButtonC from './ButtonC';
 import { useDispatch} from 'react-redux';
