@@ -1,4 +1,4 @@
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   TextField,
   Button,
@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import {AddImage} from '../../../../Config/ImageManage'; 
 import {Add,Update} from '../../../../Config/blogManage';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 
 function EditCard({ onRef,setFormSubmitted}) {
   const [title, setTitle] = useState('');
@@ -64,7 +64,7 @@ function EditCard({ onRef,setFormSubmitted}) {
     }
     // 🔥 Now open modal automatically
     // setAutoOpen(true);   // 👈 call it here
-  }, []);
+  }, [blog]);
   useEffect(() => {
     // Pass the actual React submit handler to the parent
     onRef(() => {
