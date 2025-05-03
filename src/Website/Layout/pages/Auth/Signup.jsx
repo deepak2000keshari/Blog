@@ -29,11 +29,17 @@ function Signup() {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
-        Auth.signup(credentials.email,credentials.password,credentials.Name).then((user) => {
-          if(user) {
-            navigate("/Home");
-          }
+        Auth.signup(credentials.email,credentials.password,credentials.Name).then(() => {
+         Auth.getLoggedInUser().then((user) => {
+                 if (user) {
+                   // User is logged in, you can access user details here
+                   dispatch(SignIn({ Email: user.email, Password: user.password, Name: user.name, User: user }));
+                   navigate("/Home");
+                 } else {
+                   dispatch(SignOut())
+                 }
         })
+      })
       };
 
       const handleClick = (e) => {
