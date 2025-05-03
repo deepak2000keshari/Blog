@@ -6,10 +6,6 @@ let ProjectId = import.meta.env.VITE_APPWRITE_PROJECT
 let Endpoint = import.meta.env.VITE_APPWRITE_ENDPOINT
 let DatabasesId =  import.meta.env.VITE_APPWRITE_DATABASE_ID
 let StorageId = import.meta.env.VITE_APPWRITE_BUCKET_ID
-// let ProjectId = '67bb792800026ff5ac16';
-// let Endpoint = 'https://cloud.appwrite.io/v1';
-// let DatabasesId = '67cdcce000168f2ce71f';
-// let StorageId = '67cdcf690002ca936460';
 
 client
     .setEndpoint(Endpoint)
