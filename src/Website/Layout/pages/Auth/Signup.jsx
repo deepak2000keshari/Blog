@@ -35,6 +35,11 @@ function Signup() {
           }
         })
       };
+
+      const handleClick = (e) => {
+        e.preventDefault();
+        navigate('/signin')
+      }
     
   return (
     <div>
@@ -109,9 +114,9 @@ function Signup() {
                 >
                   Register
                 </Button>
-                <a href="#" onClick={navigate('/signin')} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
+                <a href="#" onClick={handleClick} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
                   Login
-              </a>
+                </a>
               </form>
             </Paper>
           </Box>

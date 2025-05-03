@@ -44,6 +44,10 @@ function Login() {
       })
     })
   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate('/signup')
+  }
   return (
     <div>
       <Box
@@ -107,7 +111,7 @@ function Login() {
               )}
             </Button>
            
-              <a href="#" onClick={navigate('/signup')} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
+              <a href="#" onClick={handleClick} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
                 Register
               </a>
 
