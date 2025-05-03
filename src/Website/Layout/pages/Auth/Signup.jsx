@@ -109,6 +109,9 @@ function Signup() {
                 >
                   Register
                 </Button>
+                <a href="#" onClick={navigate('/signin')} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
+                  Login
+              </a>
               </form>
             </Paper>
           </Box>
