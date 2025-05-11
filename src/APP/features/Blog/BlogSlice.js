@@ -8,7 +8,9 @@ const initialState = {
   id:"",
   documentID : "",
   modal_Open: false,
-  mode: ""
+  mode: "",
+  Like : "",
+  CurrentLike : ""
 }
 
 export const BlogSlice = createSlice({
@@ -22,7 +24,9 @@ export const BlogSlice = createSlice({
       state.Context = action.payload.Context
       state.id = action.payload.id
       state.documentID= action.payload.documentID,
-      state.mode = action.payload.mode
+      state.mode = action.payload.mode,
+      state.Like = action.payload.Like,
+      state.CurrentLike = action.payload.CurrentLike
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -36,7 +40,9 @@ export const BlogSlice = createSlice({
       state.id = null
       state.modal_Open = false,
       state.documentID = null
-      state.mode = null
+      state.mode = null,
+      state.Like = null,
+      state.CurrentLike = null
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload

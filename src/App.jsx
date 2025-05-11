@@ -33,6 +33,7 @@ function App() {
       <Routes>
         <Route element = {<Website/>}>
             <Route path = '/' element = {<Home/>}/>
+            <Route path = '/blog/:edit/:id' element = {<Home/>}/>
             <Route index path = '/Home' element = {<Home/>}/>
             <Route path = '/about' element = {<About/>}/>
             <Route path = '/edit/:id' element = {<Edit/>}/>

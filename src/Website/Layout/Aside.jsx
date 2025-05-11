@@ -7,15 +7,21 @@ import {
   ListItemText,
   IconButton,
   Divider,
-  Box,
+  Box, 
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import EditIcon from '@mui/icons-material/Edit';
+import MessageIcon from '@mui/icons-material/Message';
+import { useNavigate } from 'react-router';
+import { useSelector } from "react-redux";
 function Aside() {
   const [open, setOpen] = useState(false); // State for controlling sidebar
-
+  const navigate =  useNavigate();
+  const selector =  useSelector((state => state.User));
   // Function to toggle the drawer open/close
   const toggleDrawer = (isOpen) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -26,7 +32,7 @@ function Aside() {
   return (
     <>
       {/* Menu Button to Toggle Sidebar */}
-      <IconButton onClick={toggleDrawer(true)} sx={{ position: "absolute", top: 10, left: 10 }}>
+      <IconButton onClick={toggleDrawer(true)} sx={{ position: "absolute", top: 10, left: 10,zIndex:1111 }}>
         <MenuIcon />
       </IconButton>
 
@@ -34,17 +40,17 @@ function Aside() {
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
           <List>
-            <ListItem button>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
-              <ListItemText primary="Home" />
+            <ListItem button onClick = {() => navigate('/')}>
+              <ListItemIcon><AutoStoriesIcon /></ListItemIcon>
+              <ListItemText primary="Blog" />
+            </ListItem>
+            <ListItem button onClick = {() => navigate(`/blog/edit/${selector.User.$id}`)}>
+              <ListItemIcon><EditIcon /></ListItemIcon>
+              <ListItemText primary="My Blog" />
             </ListItem>
             <ListItem button>
-              <ListItemIcon><InfoIcon /></ListItemIcon>
-              <ListItemText primary="About" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><ContactMailIcon /></ListItemIcon>
-              <ListItemText primary="Contact" />
+              <ListItemIcon><MessageIcon /></ListItemIcon>
+              <ListItemText primary="Message" />
             </ListItem>
           </List>
           <Divider />

@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-const Modal = forwardRef(({setFormSubmitted}, ref) => {   // 👈 forwardRef added here
+const Modal = forwardRef(({LikeAction,setFormSubmitted,paramsId}, ref) => {   // 👈 forwardRef added here
 const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const blog1 = useSelector((state) => state.Blog);
@@ -32,7 +32,7 @@ const dispatch = useDispatch();
   };
   const handleClickOpen1 = () => {
     // dispatch(Updateblog({...blog1,mode:""}));
-    dispatch(Updateblog({ documentID: '',id:'', Title:'', Context:'', Image:'',modal_Open: true,mode: ""}));
+    dispatch(Updateblog({ documentID: '',id:'', Title:'', Context:'', Image:'',modal_Open: true,mode: "",CurrentLike: "",Like:""}));
     setOpen(true);
   }
 
@@ -55,9 +55,9 @@ const dispatch = useDispatch();
   
   return (
     <React.Fragment>
-      <Button style = {{"marginTop":"10px"}} variant="outlined" onClick={handleClickOpen1}>
+      {paramsId && ( <Button style = {{"marginTop":"10px"}} variant="outlined" onClick={handleClickOpen1}>
         Create New Blog
-      </Button>
+      </Button>)}
       <Dialog
         fullScreen
         open={open}
@@ -82,8 +82,7 @@ const dispatch = useDispatch();
             </Button>
           </Toolbar>
         </AppBar>
-        {blog.mode != "Learn" ?  <EditCard setFormSubmitted={setFormSubmitted} onRef={(ref) => (submitRef.current = ref)}  /> : <Learn/> }
-       
+        {blog.mode != "Learn" ?  <EditCard setFormSubmitted={setFormSubmitted} onRef={(ref) => (submitRef.current = ref)}  /> : <Learn LikeAction = {LikeAction}/> }
       </Dialog>
     </React.Fragment>
   );

@@ -1,4 +1,6 @@
 import {ID ,databases,DatabaseId} from '../Config/config';
+import { Query } from 'appwrite';
+
 // let collectionId = '67cdccf7000690d1f506'
 let collectionId = import.meta.env.VITE_APPWRITE_COLLECTION_ID
 // let  databasesiD = '67cdcce000168f2ce71f'
@@ -11,11 +13,18 @@ export async function Add(Title,Description,Image,user){
         return null;
     }
 }
-export async function Get(id=''){
+export async function Get(id='',userId= ''){
     try {
         if (id) {
             return await databases.getDocument(DatabaseId,collectionId,id);
-        } else {
+        } else if (userId) {
+            return await databases.listDocuments(DatabaseId,collectionId,
+                [
+                    Query.equal('UserId', userId)
+                ]
+            );
+        }
+        else {
             return await databases.listDocuments(DatabaseId,collectionId);
         }
     }catch (error) {
