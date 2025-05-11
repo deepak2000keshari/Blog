@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { TextField, Button, Box, Typography, Paper,Alert } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router';
@@ -9,6 +9,7 @@ const Auth = UserManage(); // Call the function to get auth functions
 function Login() {
   const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [error, setError] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -30,26 +31,45 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    Auth.login(credentials.email, credentials.password).then(() => {
-      Auth.getLoggedInUser().then((user) => {
-        if (user) {
-          // User is logged in, you can access user details here
-          console.log("User is logged in:", user);
-          setLoading(false);
-          dispatch(SignIn({ Email: user.email, Password: user.password, Name: user.name, User: user }));
-          navigate("/Home");
-        } else {
-          dispatch(SignOut())
-        }
-      })
+    Auth.login(credentials.email, credentials.password).then((msg) => {
+      if (msg) {
+        setError(msg);
+        setLoading(false);
+      } else {
+        setError('')
+        Auth.getLoggedInUser().then((user) => {
+          if (user) {
+            // User is logged in, you can access user details here
+            console.log("User is logged in:", user);
+            setLoading(false);
+            dispatch(SignIn({ Email: user.email, Password: user.password, Name: user.name, User: user }));
+            navigate("/Home");
+          } else {
+            dispatch(SignOut())
+          }
+        })
+      }
     })
   };
   const handleClick = (e) => {
     e.preventDefault();
     navigate('/signup')
   }
+
+  useEffect(()=> {setLoading(false)},[error])
   return (
     <div>
+      {error && (<Alert  sx={{
+            position: "fixed",
+            top: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 9999,
+            width: "90%",
+            maxWidth: "500px",
+           }} variant="filled" severity="error" onClose={() => {}}>
+                      {error}
+        </Alert>)}
       <Box
         sx={{
           display: "flex",

@@ -1,4 +1,4 @@
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { TextField, Button, Box, Typography, Paper,Alert } from "@mui/material";
 import { useState,useEffect } from 'react';
 import {useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router';
@@ -8,6 +8,8 @@ import UserManage from '../../../../Config/UserManage';
 const Auth = UserManage(); // Call the function to get auth functions
 function Signup() {
       const [credentials, setCredentials] = useState({ Name: "", email: "", password: "", comfirmpass: ""});
+      const [error,setError] = useState('');
+      const [loading, setLoading] = useState(false);
       const dispatch = useDispatch();
       const navigate = useNavigate();
       useEffect(() => {
@@ -29,26 +31,49 @@ function Signup() {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
-        Auth.signup(credentials.email,credentials.password,credentials.Name).then(() => {
-         Auth.getLoggedInUser().then((user) => {
-                 if (user) {
-                   // User is logged in, you can access user details here
-                   dispatch(SignIn({ Email: user.email, Password: user.password, Name: user.name, User: user }));
-                   navigate("/Home");
-                 } else {
-                   dispatch(SignOut())
-                 }
+        setLoading(true);
+        Auth.signup(credentials.email,credentials.password,credentials.Name).then((msg) => {
+         if (msg) {
+          setError(msg);
+          setLoading(false);
+          return false;
+         } else {
+            setError(); 
+            Auth.getLoggedInUser().then((user) => {
+              setLoading(false);
+                  if (user) {
+                    // User is logged in, you can access user details here
+                    dispatch(SignIn({ Email: user.email, Password: user.password, Name: user.name, User: user }));
+                    navigate("/Home");
+                  } else {
+                    dispatch(SignOut())
+                  }
+            })
+          }
         })
-      })
       };
 
       const handleClick = (e) => {
         e.preventDefault();
         navigate('/signin')
       }
+
+      useEffect(() => {setLoading(false)}, [error])
+
     
   return (
     <div>
+      {error && (<Alert  sx={{
+      position: "fixed",
+      top: 16,
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 9999,
+      width: "90%",
+      maxWidth: "500px",
+    }} variant="filled" severity="error" onClose={() => {}}>
+                 {error}
+                </Alert>)}
         <Box 
             sx={{
               display: "flex",
@@ -118,7 +143,16 @@ function Signup() {
                   fullWidth
                   sx={{ marginTop: 2 }}
                 >
-                  Register
+                {loading ? (
+                <div className="dot-loader">
+                  <span className="dot delay-0">.</span>
+                  <span className="dot delay-0">.</span>
+                  <span className="dot delay-1">.</span>
+                  <span className="dot delay-2">.</span>
+                </div>
+              ) : (
+                "Register"
+              )}
                 </Button>
                 <a href="#" onClick={handleClick} style={{ textDecoration: "none", color: "Black" , marginTop: 10, display: "block" }}>
                   Login
